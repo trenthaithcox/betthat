@@ -81,6 +81,9 @@
                         <!-- Formspree form identifier -->
                         <input type="hidden" name="_form" value="mblgvqep">
                         
+                        <!-- Redirect after submission -->
+                        <input type="hidden" name="_next" value="https://trenthaithcox.github.io/betthat/thanks.html">
+                        
                         <div class="text-center pt-4">
                             <button type="submit" class="download-btn bg-primary-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block">
                                 Send Message
@@ -184,53 +187,40 @@
     <script src="script.js"></script>
     <script>
         // Handle form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            // Don't prevent default for Formspree when on GitHub Pages
-            // Only use the fetch API when running locally (server is available)
-            const isLocalDevelopment = window.location.hostname === 'localhost' || 
-                                      window.location.hostname === '127.0.0.1';
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
             
-            if (isLocalDevelopment) {
-                e.preventDefault();
-                
-                const firstName = document.getElementById('firstName').value;
-                const lastName = document.getElementById('lastName').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-                
-                // Send form data to the server
-                fetch('/api/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ firstName, lastName, email, message }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    document.getElementById('contactForm').classList.add('hidden');
-                    document.getElementById('thankYouMessage').classList.remove('hidden');
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert('There was an error submitting your form. Please try again.');
+            // Only use custom handling when running locally 
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const firstName = document.getElementById('firstName').value;
+                    const lastName = document.getElementById('lastName').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Send form data to the server
+                    fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ firstName, lastName, email, message }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        document.getElementById('contactForm').classList.add('hidden');
+                        document.getElementById('thankYouMessage').classList.remove('hidden');
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert('There was an error submitting your form. Please try again.');
+                    });
                 });
-            } else {
-                // When on GitHub Pages, form will be handled by Formspree
-                // Just show the thank you message after submission
-                const form = document.getElementById('contactForm');
-                const thankYou = document.getElementById('thankYouMessage');
-                
-                // Add a hidden field to redirect back to this page
-                const hiddenField = document.createElement('input');
-                hiddenField.type = 'hidden';
-                hiddenField.name = '_next';
-                hiddenField.value = window.location.href;
-                form.appendChild(hiddenField);
-                
-                // We don't prevent default, let the form submit normally to Formspree
             }
+            // When on GitHub Pages, form will be handled by Formspree directly
         });
     </script>
 </body>
