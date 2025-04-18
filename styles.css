@@ -1,0 +1,157 @@
+/* Custom color variables */
+:root {
+    --primary-color: #4096FF; /* Light blue */
+    --primary-dark: #2B7DE1; /* Dark blue */
+    --secondary-color: #3D8EF7; /* Secondary blue */
+    --bg-color: #E6F0FF; /* Very light blue */
+}
+
+/* Apply custom colors to Tailwind classes */
+.bg-soft-blue {
+    background-color: var(--bg-color) !important;
+}
+
+.text-primary-500 {
+    color: var(--primary-color) !important;
+}
+
+.bg-primary-500 {
+    background-color: var(--primary-color) !important;
+}
+
+.bg-primary-600 {
+    background-color: var(--primary-dark) !important;
+}
+
+.hover\:text-primary-500:hover {
+    color: var(--primary-color) !important;
+}
+
+.border-primary-500 {
+    border-color: var(--primary-color) !important;
+}
+
+/* Custom styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-color) !important;
+}
+
+/* Floating emojis animation */
+.floating-emoji {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.6;
+    animation: float 8s ease-in-out infinite;
+}
+
+.floating-emoji:nth-child(1) {
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.floating-emoji:nth-child(2) {
+    top: 40%;
+    right: 20%;
+    animation-delay: 2s;
+}
+
+.floating-emoji:nth-child(3) {
+    bottom: 30%;
+    left: 25%;
+    animation-delay: 4s;
+}
+
+.floating-emoji:nth-child(4) {
+    bottom: 40%;
+    right: 25%;
+    animation-delay: 6s;
+}
+
+.floating-emoji:nth-child(5) {
+    top: 30%;
+    right: 10%;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0);
+    }
+}
+
+/* Responsive hero section */
+.hero-section {
+    min-height: calc(100vh - 120px); /* Adjust for footer */
+}
+
+/* QR code container */
+.qr-container {
+    transition: transform 0.3s ease;
+}
+
+.qr-container:hover {
+    transform: scale(1.05);
+}
+
+/* Download button pulse effect */
+.download-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.download-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+}
+
+.download-btn:active::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Side menu animation */
+#sideMenu.open {
+    transform: translateX(0);
+}
+
+#overlay.show {
+    opacity: 0.5;
+    pointer-events: auto;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .floating-emoji {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding-top: 4rem;
+    }
+} 

@@ -1,0 +1,12 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .logo-text {
+      fill: #1e1a2b;
+      font-family: 'Arial Black', 'Arial Bold', sans-serif;
+      font-weight: 800;
+      font-size: 65px;
+      font-style: italic;
+    }
+  </style>
+  <text x="0" y="80" class="logo-text">Bet That!</text>
+</svg> 

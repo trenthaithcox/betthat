@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Bet That</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-top: 1rem;
+        }
+        .faq-item.active .faq-toggle-icon {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .faq-toggle-icon {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="font-sans bg-soft-blue min-h-screen" style="background-color: #E6F0FF;">
+    <!-- Nav Menu -->
+    <nav class="fixed top-0 left-0 w-full p-4 z-50 flex justify-between items-center">
+        <button id="menuToggle" class="text-gray-800 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <a href="index.html" class="font-bold text-xl text-primary-500" style="color: #4096FF;">Bet That</a>
+    </nav>
+
+    <!-- Side Drawer Menu -->
+    <div id="sideMenu" class="fixed top-0 left-0 w-64 h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
+        <div class="p-6">
+            <button id="closeMenu" class="absolute top-4 right-4 text-gray-800 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <ul class="mt-8 space-y-4">
+                <li><a href="index.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Home</a></li>
+                <li><a href="how-it-works.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">How It Works</a></li>
+                <li><a href="faq.html" class="text-xl font-semibold text-primary-500" style="color: #4096FF;">FAQ</a></li>
+                <li><a href="safety.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Safety</a></li>
+                <li><a href="contact.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Overlay when menu is open -->
+    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out z-40"></div>
+
+    <!-- Content Section -->
+    <section class="content-section px-4 py-16 mt-12 relative">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8">Frequently Asked Questions</h1>
+            
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center text-left">
+                        <h2 class="text-xl font-bold">Is Bet That gambling?</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 faq-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">Bet That isn't a sportsbook — it's a peer-to-peer prediction platform where users create and accept friendly challenges. We don't set odds, take bets, or profit from outcomes. Think of it like a digital handshake — what you wager is between you and your opponent.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center text-left">
+                        <h2 class="text-xl font-bold">How does Bet That work?</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 faq-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">You create a bet, set the terms, and challenge a friend (or the internet). If they accept, the wager is on. Once the outcome is clear, the winner gets the bragging rights and the pot.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center text-left">
+                        <h2 class="text-xl font-bold">What can I make predictions about?</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 faq-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">Pretty much anything. Sports games, album drops, reality TV drama, crypto prices, your friend's dating life — if it can happen, you can bet on it. Just keep it respectful, legal, and fun.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center text-left">
+                        <h2 class="text-xl font-bold">How are outcomes determined?</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 faq-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">Most bets are settled between you and your opponent — just like a handshake bet. But if there's a disagreement, users from the community can step in to moderate. Moderators earn free play credits for helping resolve bets fairly, which they can use to place their own wagers. It keeps things honest, rewards fairness, and even lets you play without spending a dime.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center text-left">
+                        <h2 class="text-xl font-bold">What makes Bet That different from a sportsbook?</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 faq-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">No odds, no house, no hidden fees. You're not betting against us — you're betting with or against other people. Just like it used to be.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 6 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center text-left">
+                        <h2 class="text-xl font-bold">Is Bet That legal?</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 faq-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-gray-700">We're building Bet That to operate within legal frameworks by focusing on social, peer-driven predictions — not acting as a traditional gambling operator. (More details coming soon as we finalize compliance.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-gray-700 mb-8">Have more questions? Reach out to our team!</p>
+                <a href="mailto:founders@betthat.io" class="text-primary-500 font-bold hover:underline">founders@betthat.io</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto p-6 bg-white bg-opacity-50 rounded-t-3xl">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-center md:text-left mb-4 md:mb-0">Made with 🔥 in Los Angeles, CA</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-primary-500">Privacy</a>
+                    <a href="join-team.html" class="text-gray-700 hover:text-primary-500">Join Our Team</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-500">Contact</a>
+                </div>
+            </div>
+            <div class="flex justify-center mt-6 space-x-8">
+                <a href="https://www.instagram.com/betthat.io/" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+                <a href="https://x.com/betthat_io" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // FAQ accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.parentElement;
+                    
+                    // Toggle current item
+                    faqItem.classList.toggle('active');
+                    
+                    // Close other items (optional)
+                    // faqQuestions.forEach(otherQuestion => {
+                    //     if (otherQuestion !== question) {
+                    //         otherQuestion.parentElement.classList.remove('active');
+                    //     }
+                    // });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
