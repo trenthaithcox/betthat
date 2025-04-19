@@ -5,8 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const sideMenu = document.getElementById('sideMenu');
     const overlay = document.getElementById('overlay');
     
-    // Check for waitlist increment flag on page load
+    // Check for waitlist increment flag once and then clear it to prevent double counting
     if (localStorage.getItem('incrementWaitlist') === 'true') {
+        // Always remove the flag immediately
         localStorage.removeItem('incrementWaitlist');
         
         // Use a timeout to ensure the incrementWaitlistCounter function is available
@@ -14,13 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (typeof window.incrementWaitlistCounter === 'function') {
                 window.incrementWaitlistCounter();
             } else {
-                // If we're not on the homepage, set a pending flag
+                // If we're not on the signup page, set a pending flag
                 localStorage.setItem('pendingIncrement', 'true');
             }
         }, 100);
     }
     
-    // Handle any pending increments if we're on the homepage
+    // Handle any pending increments if we're on the signup page
     if (localStorage.getItem('pendingIncrement') === 'true' && 
         typeof window.incrementWaitlistCounter === 'function') {
         localStorage.removeItem('pendingIncrement');
