@@ -280,14 +280,31 @@
     <!-- Signup Page Animation Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            console.log("Signup page loaded, preparing animation");
             // Get the signup container
             const signupContainer = document.querySelector('.signup-container');
             
-            // Trigger animation after a short delay
+            // Explicitly set the initial state
             if (signupContainer) {
+                signupContainer.style.opacity = "0";
+                signupContainer.style.transform = "translateY(50px)";
+                
+                console.log("Initial state set:", 
+                    signupContainer.style.opacity,
+                    signupContainer.style.transform);
+                
+                // Trigger animation after a short delay
                 setTimeout(function() {
+                    console.log("Applying animation class");
                     signupContainer.classList.add('animate-in');
-                }, 100);
+                    
+                    // Force reflow to ensure animation plays
+                    void signupContainer.offsetWidth;
+                    
+                    // Remove inline styles to allow CSS transitions to work
+                    signupContainer.style.opacity = "";
+                    signupContainer.style.transform = "";
+                }, 200);
             }
         });
     </script>

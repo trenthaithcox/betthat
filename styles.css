@@ -168,31 +168,40 @@ body {
     overflow-x: hidden;
 }
 
+.hero-section {
+    transition: background-color 0.8s ease-in-out;
+}
+
 .hero-title,
 .hero-subtitle,
 .hero-logo-container,
 .hero-cta {
-    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    will-change: transform, opacity;
 }
 
-.transition-active .hero-title {
-    transform: translateX(-100%);
+.hero-section.transition-active .hero-title {
+    transform: translateX(-150%);
     opacity: 0;
+    transition-delay: 0s;
 }
 
-.transition-active .hero-subtitle {
-    transform: translateX(-100%);
+.hero-section.transition-active .hero-subtitle {
+    transform: translateX(-150%);
     opacity: 0;
+    transition-delay: 0.05s;
 }
 
-.transition-active .hero-logo-container {
-    transform: translateX(100%);
+.hero-section.transition-active .hero-logo-container {
+    transform: translateX(150%);
     opacity: 0;
+    transition-delay: 0.1s;
 }
 
-.transition-active .hero-cta {
-    transform: translateY(100%);
+.hero-section.transition-active .hero-cta {
+    transform: translateY(150%);
     opacity: 0;
+    transition-delay: 0.15s;
 }
 
 .download-btn.pulse {
@@ -214,8 +223,9 @@ body {
 /* Signup Page Animation */
 .signup-container {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: transform, opacity;
 }
 
 .signup-container.animate-in {

@@ -101,19 +101,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const stayInLoopButton = document.getElementById('stayInLoopButton');
-            const body = document.body;
+            const heroSection = document.querySelector('.hero-section');
             
-            if (stayInLoopButton) {
+            if (stayInLoopButton && heroSection) {
                 stayInLoopButton.addEventListener('click', function(e) {
                     e.preventDefault(); // Prevent immediate navigation
                     
-                    // Add transition class to trigger animations
-                    body.classList.add('transition-active');
+                    console.log("Button clicked, starting transition");
+                    
+                    // Add transition class to hero section instead of body
+                    heroSection.classList.add('transition-active');
+                    
+                    // Log transition state for debugging
+                    const heroTitle = document.querySelector('.hero-title');
+                    console.log("Transition applied to hero title:", 
+                        getComputedStyle(heroTitle).transform,
+                        getComputedStyle(heroTitle).opacity);
                     
                     // After animation completes, navigate to signup page
                     setTimeout(function() {
+                        console.log("Transition complete, navigating");
                         window.location.href = stayInLoopButton.getAttribute('href');
-                    }, 600); // Match this with the transition duration in CSS
+                    }, 1000); // Increased from 600ms to 1000ms for the longer animation
                 });
             }
         });
