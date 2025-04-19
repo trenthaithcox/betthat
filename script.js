@@ -27,18 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.incrementWaitlistCounter();
     }
     
-    // If we're on a page with the waitlist button but not the homepage,
-    // add a click handler to increment the counter in localStorage directly
-    const waitlistButton = document.getElementById('waitlistButton');
-    if (waitlistButton && !document.getElementById('userCounter')) {
-        waitlistButton.addEventListener('click', function() {
-            let count = parseInt(localStorage.getItem('waitlistCount') || '2457');
-            count++;
-            localStorage.setItem('waitlistCount', count);
-            localStorage.setItem('incrementWaitlist', 'true');
-        });
-    }
-    
     // Open menu
     menuToggle.addEventListener('click', function() {
         sideMenu.classList.add('open');
