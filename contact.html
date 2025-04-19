@@ -212,14 +212,31 @@
                         console.log('Success:', data);
                         document.getElementById('contactForm').classList.add('hidden');
                         document.getElementById('thankYouMessage').classList.remove('hidden');
+                        
+                        // Increment waitlist counter if the function exists
+                        if (typeof window.incrementWaitlistCounter === 'function') {
+                            window.incrementWaitlistCounter();
+                        }
                     })
                     .catch((error) => {
                         console.error('Error:', error);
                         alert('There was an error submitting your form. Please try again.');
                     });
                 });
+            } else {
+                // When on GitHub Pages, form will be handled by Formspree directly
+                
+                // Create a temporary function to increment the counter after form submission
+                form.addEventListener('submit', function() {
+                    window.addEventListener('pagehide', function() {
+                        // Use setTimeout to delay this action until after form submission
+                        setTimeout(function() {
+                            // Store a flag in localStorage to increment the counter when returning to the site
+                            localStorage.setItem('incrementWaitlist', 'true');
+                        }, 500);
+                    }, {once: true});
+                });
             }
-            // When on GitHub Pages, form will be handled by Formspree directly
         });
     </script>
 </body>

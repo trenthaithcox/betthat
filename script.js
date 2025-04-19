@@ -5,6 +5,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const sideMenu = document.getElementById('sideMenu');
     const overlay = document.getElementById('overlay');
     
+    // Check if we need to increment the waitlist counter (after form submission)
+    if (localStorage.getItem('incrementWaitlist') === 'true') {
+        // Clear the flag
+        localStorage.removeItem('incrementWaitlist');
+        
+        // Wait for the counter function to be available (it's defined in index.html)
+        setTimeout(function() {
+            // Only increment if we're on the homepage or if the function exists
+            if (window.incrementWaitlistCounter) {
+                window.incrementWaitlistCounter();
+            } else if (window.location.pathname !== '/index.html' && 
+                      window.location.pathname !== '/' && 
+                      window.location.pathname !== '/betthat/' && 
+                      window.location.pathname !== '/betthat/index.html') {
+                // If we're not on the homepage, store the flag to increment later
+                localStorage.setItem('pendingIncrement', 'true');
+            }
+        }, 1000);
+    }
+    
+    // If there's a pending increment and we're on the homepage
+    if (localStorage.getItem('pendingIncrement') === 'true' && window.incrementWaitlistCounter) {
+        localStorage.removeItem('pendingIncrement');
+        window.incrementWaitlistCounter();
+    }
+    
     // Open menu
     menuToggle.addEventListener('click', function() {
         sideMenu.classList.add('open');

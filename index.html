@@ -106,9 +106,22 @@
     <!-- Counter Animation Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Set the target number (you can change this to any number)
-            const targetNumber = 2457;
+            // Get counter value from localStorage or use default
+            let currentCount = parseInt(localStorage.getItem('waitlistCount')) || 2457;
             const counterElement = document.getElementById('userCounter');
+            
+            // Function to increment counter (will be called from signup and contact pages)
+            window.incrementWaitlistCounter = function() {
+                currentCount++;
+                localStorage.setItem('waitlistCount', currentCount);
+                counterElement.textContent = currentCount.toLocaleString();
+                return currentCount;
+            };
+            
+            // Make the function globally accessible
+            window.getCurrentWaitlistCount = function() {
+                return currentCount;
+            };
             
             // Function to animate counter
             function animateCounter(element, start, end, duration) {
@@ -116,8 +129,8 @@
                 const step = (timestamp) => {
                     if (!startTimestamp) startTimestamp = timestamp;
                     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const currentCount = Math.floor(progress * (end - start) + start);
-                    element.textContent = currentCount.toLocaleString();
+                    const currentValue = Math.floor(progress * (end - start) + start);
+                    element.textContent = currentValue.toLocaleString();
                     
                     if (progress < 1) {
                         window.requestAnimationFrame(step);
@@ -130,7 +143,7 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        animateCounter(counterElement, 0, targetNumber, 2000); // 2000ms = 2 seconds
+                        animateCounter(counterElement, 0, currentCount, 2000); // 2000ms = 2 seconds
                         observer.unobserve(entry.target);
                     }
                 });

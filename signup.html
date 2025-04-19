@@ -141,34 +141,66 @@
             // Only handle custom submission when running locally
             if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 form.addEventListener('submit', function(e) {
-                    e.preventDefault();
+                    // Only use the fetch API when running locally (server is available)
+                    const isLocalDevelopment = window.location.hostname === 'localhost' || 
+                                              window.location.hostname === '127.0.0.1';
                     
-                    const formData = {
-                        firstName: document.getElementById('firstName').value,
-                        lastName: document.getElementById('lastName').value,
-                        email: document.getElementById('email').value,
-                        updates: document.getElementById('updates').checked
-                    };
-                    
-                    // Send data to the server
-                    fetch('/api/signup', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        // Hide form and show thank you message
-                        form.classList.add('hidden');
-                        thankYouMessage.classList.remove('hidden');
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('There was an error submitting your form. Please try again.');
-                    });
+                    if (isLocalDevelopment) {
+                        e.preventDefault();
+                        
+                        const formData = {
+                            firstName: document.getElementById('firstName').value,
+                            lastName: document.getElementById('lastName').value,
+                            email: document.getElementById('email').value,
+                            updates: document.getElementById('updates').checked
+                        };
+                        
+                        // Send data to the server
+                        fetch('/api/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            // Hide form and show thank you message
+                            form.classList.add('hidden');
+                            thankYouMessage.classList.remove('hidden');
+                            
+                            // Increment waitlist counter if the function exists
+                            if (typeof window.incrementWaitlistCounter === 'function') {
+                                window.incrementWaitlistCounter();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('There was an error submitting your form. Please try again.');
+                        });
+                    } else {
+                        // When on GitHub Pages, form will be handled by Formspree
+                        // Just show the thank you message after submission
+                        
+                        // Add a hidden field to redirect back to this page
+                        const hiddenField = document.createElement('input');
+                        hiddenField.type = 'hidden';
+                        hiddenField.name = '_next';
+                        hiddenField.value = window.location.href;
+                        form.appendChild(hiddenField);
+                        
+                        // Create a temporary function to increment the counter after form submission
+                        window.addEventListener('pagehide', function() {
+                            // Use setTimeout to delay this action until after form submission
+                            setTimeout(function() {
+                                // Store a flag in localStorage to increment the counter when returning to the site
+                                localStorage.setItem('incrementWaitlist', 'true');
+                            }, 500);
+                        }, {once: true});
+                        
+                        // We don't prevent default, let the form submit normally to Formspree
+                    }
                 });
             }
             // When on GitHub Pages, form will be handled by Formspree directly
