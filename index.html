@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
-<body class="font-sans bg-soft-blue min-h-screen" style="background-color: #E6F0FF;">
+<body class="font-sans bg-soft-blue min-h-screen page-transition" style="background-color: #E6F0FF;">
     <!-- Nav Menu -->
     <nav class="fixed top-0 left-0 w-full p-4 z-50 flex justify-between items-center">
         <button id="menuToggle" class="text-gray-800 focus:outline-none">
@@ -51,19 +51,26 @@
         <div class="floating-emoji">🎲</div>
         <div class="floating-emoji">🏆</div>
         
-        <h1 class="text-4xl md:text-6xl font-extrabold text-center text-gray-900 mb-4">Bet on anything, with anyone. <span class="text-primary-500" style="color: #4096FF;">Bet That.</span></h1>
-        <p class="text-xl md:text-2xl text-center text-gray-700 mb-10 max-w-2xl">Bringing back the handshake bet — no bookie, no vig</p>
+        <div class="hero-title">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-center text-gray-900 mb-4">Bet on anything, with anyone. <span class="text-primary-500" style="color: #4096FF;">Bet That.</span></h1>
+        </div>
         
-        <div class="flex flex-col items-center justify-center mb-12">
+        <div class="hero-subtitle">
+            <p class="text-xl md:text-2xl text-center text-gray-700 mb-10 max-w-2xl">Bringing back the handshake bet — no bookie, no vig</p>
+        </div>
+        
+        <div class="hero-logo-container flex flex-col items-center justify-center mb-12">
             <div style="background-color: #E6F0FF; padding: 2px; border-radius: 8px;">
                 <img src="betthatsquare.png" alt="Bet That Logo" class="w-56 h-56" style="border: none; box-shadow: none; outline: none;">
             </div>
             <p class="text-lg font-medium mt-4 text-primary-500" style="color: #4096FF;">Coming soon...</p>
         </div>
         
-        <a href="signup.html" class="download-btn bg-primary-500 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block" style="background-color: #4096FF;" id="stayInLoopButton">
-            Stay in the Loop
-        </a>
+        <div class="hero-cta">
+            <a href="signup.html" class="download-btn bg-primary-500 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block" style="background-color: #4096FF;" id="stayInLoopButton">
+                Stay in the Loop
+            </a>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -89,5 +96,27 @@
     </footer>
 
     <script src="script.js"></script>
+    
+    <!-- Page Transition Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stayInLoopButton = document.getElementById('stayInLoopButton');
+            const body = document.body;
+            
+            if (stayInLoopButton) {
+                stayInLoopButton.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent immediate navigation
+                    
+                    // Add transition class to trigger animations
+                    body.classList.add('transition-active');
+                    
+                    // After animation completes, navigate to signup page
+                    setTimeout(function() {
+                        window.location.href = stayInLoopButton.getAttribute('href');
+                    }, 600); // Match this with the transition duration in CSS
+                });
+            }
+        });
+    </script>
 </body>
 </html> 
