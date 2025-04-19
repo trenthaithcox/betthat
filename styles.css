@@ -154,4 +154,9 @@ body {
     .hero-section {
         padding-top: 4rem;
     }
+    
+    /* Hide floating emojis on mobile devices */
+    .floating-emoji {
+        display: none;
+    }
 } 
