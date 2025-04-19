@@ -61,20 +61,7 @@
             <p class="text-lg font-medium mt-4 text-primary-500" style="color: #4096FF;">Coming soon...</p>
         </div>
         
-        <!-- Animated Stats Counter Section -->
-        <div class="bg-white rounded-xl shadow-md px-8 py-6 mb-10 max-w-md mx-auto">
-            <div class="flex items-center justify-center">
-                <div class="text-center">
-                    <div class="flex items-baseline justify-center">
-                        <span class="text-4xl font-bold text-primary-500" id="userCounter" style="color: #4096FF;">0</span>
-                        <span class="text-2xl font-medium ml-2">+</span>
-                    </div>
-                    <p class="text-gray-700 mt-2">users have joined our waitlist</p>
-                </div>
-            </div>
-        </div>
-        
-        <a href="signup.html" class="download-btn bg-primary-500 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block" style="background-color: #4096FF;">
+        <a href="signup.html" class="download-btn bg-primary-500 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block" style="background-color: #4096FF;" id="waitlistButton">
             Stay in the Loop
         </a>
     </section>
@@ -102,56 +89,5 @@
     </footer>
 
     <script src="script.js"></script>
-    
-    <!-- Counter Animation Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get counter value from localStorage or use default
-            let currentCount = parseInt(localStorage.getItem('waitlistCount')) || 2457;
-            const counterElement = document.getElementById('userCounter');
-            
-            // Function to increment counter (will be called from signup and contact pages)
-            window.incrementWaitlistCounter = function() {
-                currentCount++;
-                localStorage.setItem('waitlistCount', currentCount);
-                counterElement.textContent = currentCount.toLocaleString();
-                return currentCount;
-            };
-            
-            // Make the function globally accessible
-            window.getCurrentWaitlistCount = function() {
-                return currentCount;
-            };
-            
-            // Function to animate counter
-            function animateCounter(element, start, end, duration) {
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const currentValue = Math.floor(progress * (end - start) + start);
-                    element.textContent = currentValue.toLocaleString();
-                    
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
-            }
-            
-            // Start animation when the element is in view
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounter(counterElement, 0, currentCount, 2000); // 2000ms = 2 seconds
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            // Start observing the counter element
-            observer.observe(counterElement);
-        });
-    </script>
 </body>
 </html> 

@@ -5,30 +5,38 @@ document.addEventListener('DOMContentLoaded', function() {
     const sideMenu = document.getElementById('sideMenu');
     const overlay = document.getElementById('overlay');
     
-    // Check if we need to increment the waitlist counter (after form submission)
+    // Check for waitlist increment flag on page load
     if (localStorage.getItem('incrementWaitlist') === 'true') {
-        // Clear the flag
         localStorage.removeItem('incrementWaitlist');
         
-        // Wait for the counter function to be available (it's defined in index.html)
+        // Use a timeout to ensure the incrementWaitlistCounter function is available
         setTimeout(function() {
-            // Only increment if we're on the homepage or if the function exists
-            if (window.incrementWaitlistCounter) {
+            if (typeof window.incrementWaitlistCounter === 'function') {
                 window.incrementWaitlistCounter();
-            } else if (window.location.pathname !== '/index.html' && 
-                      window.location.pathname !== '/' && 
-                      window.location.pathname !== '/betthat/' && 
-                      window.location.pathname !== '/betthat/index.html') {
-                // If we're not on the homepage, store the flag to increment later
+            } else {
+                // If we're not on the homepage, set a pending flag
                 localStorage.setItem('pendingIncrement', 'true');
             }
-        }, 1000);
+        }, 100);
     }
     
-    // If there's a pending increment and we're on the homepage
-    if (localStorage.getItem('pendingIncrement') === 'true' && window.incrementWaitlistCounter) {
+    // Handle any pending increments if we're on the homepage
+    if (localStorage.getItem('pendingIncrement') === 'true' && 
+        typeof window.incrementWaitlistCounter === 'function') {
         localStorage.removeItem('pendingIncrement');
         window.incrementWaitlistCounter();
+    }
+    
+    // If we're on a page with the waitlist button but not the homepage,
+    // add a click handler to increment the counter in localStorage directly
+    const waitlistButton = document.getElementById('waitlistButton');
+    if (waitlistButton && !document.getElementById('userCounter')) {
+        waitlistButton.addEventListener('click', function() {
+            let count = parseInt(localStorage.getItem('waitlistCount') || '2457');
+            count++;
+            localStorage.setItem('waitlistCount', count);
+            localStorage.setItem('incrementWaitlist', 'true');
+        });
     }
     
     // Open menu

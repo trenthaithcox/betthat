@@ -49,6 +49,19 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 text-center">Stay in the Loop</h1>
             <p class="text-lg text-gray-700 mb-8 text-center">Be the first to know when Bet That launches and get early access to our beta!</p>
             
+            <!-- Animated Stats Counter Section -->
+            <div class="bg-white rounded-xl shadow-md px-8 py-6 mb-8 max-w-md mx-auto">
+                <div class="flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="flex items-baseline justify-center">
+                            <span class="text-4xl font-bold text-primary-500" id="userCounter" style="color: #4096FF;">0</span>
+                            <span class="text-2xl font-medium ml-2">+</span>
+                        </div>
+                        <p class="text-gray-700 mt-2">users have joined our waitlist</p>
+                    </div>
+                </div>
+            </div>
+            
             <div class="floating-emoji">🔥</div>
             <div class="floating-emoji">🌶️</div>
             <div class="floating-emoji">✨</div>
@@ -204,6 +217,60 @@
                 });
             }
             // When on GitHub Pages, form will be handled by Formspree directly
+        });
+    </script>
+    
+    <!-- Counter Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get counter value from localStorage or use default
+            let currentCount = parseInt(localStorage.getItem('waitlistCount')) || 2457;
+            const counterElement = document.getElementById('userCounter');
+            
+            // Set the initial counter value
+            counterElement.textContent = currentCount.toLocaleString();
+            
+            // Function to increment counter (will be called from signup and contact pages)
+            window.incrementWaitlistCounter = function() {
+                currentCount++;
+                localStorage.setItem('waitlistCount', currentCount);
+                counterElement.textContent = currentCount.toLocaleString();
+                return currentCount;
+            };
+            
+            // Make the function globally accessible
+            window.getCurrentWaitlistCount = function() {
+                return currentCount;
+            };
+            
+            // Function to animate counter
+            function animateCounter(element, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const currentValue = Math.floor(progress * (end - start) + start);
+                    element.textContent = currentValue.toLocaleString();
+                    
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            // Start animation when the element is in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(counterElement, 0, currentCount, 2000); // 2000ms = 2 seconds
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            // Start observing the counter element
+            observer.observe(counterElement);
         });
     </script>
 </body>
