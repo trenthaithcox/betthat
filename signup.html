@@ -11,6 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body class="font-sans bg-soft-blue min-h-screen page-transition" style="background-color: #E6F0FF;">
     <!-- Nav Menu -->
@@ -146,6 +150,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="firebase-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('signupForm');
@@ -183,16 +188,13 @@
                             form.classList.add('hidden');
                             thankYouMessage.classList.remove('hidden');
                             
-                            // Increment waitlist counter if the function exists
-                            if (typeof window.incrementWaitlistCounter === 'function') {
-                                window.incrementWaitlistCounter();
-                            } else {
-                                // Directly increment in localStorage if the function isn't available
-                                let count = parseInt(localStorage.getItem('waitlistCount') || '2457');
-                                count++;
-                                localStorage.setItem('waitlistCount', count);
-                                localStorage.setItem('incrementWaitlist', 'true');
-                            }
+                            // Increment the Firebase counter
+                            incrementWaitlistCount((newCount) => {
+                                console.log('Counter incremented, new value:', newCount);
+                                // Update display if counter is visible
+                                const counterElement = document.getElementById('userCounter');
+                                if (counterElement) updateCounterDisplay(counterElement, newCount);
+                            });
                         })
                         .catch(error => {
                             console.error('Error:', error);
@@ -211,8 +213,8 @@
                         
                         // Set up the flag to increment the counter on form submission
                         form.addEventListener('submit', function() {
-                            // Set the flag to increment the counter when the user returns after submission
-                            localStorage.setItem('incrementWaitlist', 'true');
+                            // Increment the Firebase counter
+                            incrementWaitlistCount();
                         });
                         
                         // We don't prevent default, let the form submit normally to Formspree
@@ -220,60 +222,6 @@
                 });
             }
             // When on GitHub Pages, form will be handled by Formspree directly
-        });
-    </script>
-    
-    <!-- Counter Animation Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get counter value from localStorage or use default
-            let currentCount = parseInt(localStorage.getItem('waitlistCount')) || 2457;
-            const counterElement = document.getElementById('userCounter');
-            
-            // Set the initial counter value
-            counterElement.textContent = currentCount.toLocaleString();
-            
-            // Function to increment counter (will be called from signup and contact pages)
-            window.incrementWaitlistCounter = function() {
-                currentCount++;
-                localStorage.setItem('waitlistCount', currentCount);
-                counterElement.textContent = currentCount.toLocaleString();
-                return currentCount;
-            };
-            
-            // Make the function globally accessible
-            window.getCurrentWaitlistCount = function() {
-                return currentCount;
-            };
-            
-            // Function to animate counter
-            function animateCounter(element, start, end, duration) {
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const currentValue = Math.floor(progress * (end - start) + start);
-                    element.textContent = currentValue.toLocaleString();
-                    
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
-            }
-            
-            // Start animation when the element is in view
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounter(counterElement, 0, currentCount, 2000); // 2000ms = 2 seconds
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            // Start observing the counter element
-            observer.observe(counterElement);
         });
     </script>
     

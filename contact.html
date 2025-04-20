@@ -11,6 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body class="font-sans bg-soft-blue min-h-screen" style="background-color: #E6F0FF;">
     <!-- Nav Menu -->
@@ -184,6 +188,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="firebase-config.js"></script>
     <script>
         // Handle form submission
         document.addEventListener('DOMContentLoaded', function() {
@@ -213,11 +218,8 @@
                         document.getElementById('contactForm').classList.add('hidden');
                         document.getElementById('thankYouMessage').classList.remove('hidden');
                         
-                        // Increment waitlist counter directly in localStorage
-                        let count = parseInt(localStorage.getItem('waitlistCount') || '2457');
-                        count++;
-                        localStorage.setItem('waitlistCount', count);
-                        localStorage.setItem('incrementWaitlist', 'true');
+                        // Increment the Firebase counter
+                        incrementWaitlistCount();
                     })
                     .catch((error) => {
                         console.error('Error:', error);
@@ -229,13 +231,8 @@
                 
                 // Add increment logic for production environment
                 form.addEventListener('submit', function() {
-                    // Increment the counter directly in localStorage
-                    let count = parseInt(localStorage.getItem('waitlistCount') || '2457');
-                    count++;
-                    localStorage.setItem('waitlistCount', count);
-                    
-                    // Set flag to ensure counter is updated when returning to the site
-                    localStorage.setItem('incrementWaitlist', 'true');
+                    // Increment the Firebase counter
+                    incrementWaitlistCount();
                 });
             }
         });
