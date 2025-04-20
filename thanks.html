@@ -11,6 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body class="font-sans bg-soft-blue min-h-screen flex flex-col" style="background-color: #E6F0FF;">
     <!-- Nav Menu -->
@@ -80,5 +84,33 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="firebase-config.js"></script>
+    
+    <!-- Process URL params to increment counter if needed -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Thanks page loaded, checking for increment parameter");
+            
+            // Check if we need to increment the counter
+            const urlParams = new URLSearchParams(window.location.search);
+            const shouldIncrement = urlParams.get('increment') === 'true';
+            
+            if (shouldIncrement) {
+                console.log("Increment parameter found, incrementing counter");
+                
+                // Wait a bit for Firebase to initialize
+                setTimeout(function() {
+                    // Try to increment the counter
+                    incrementWaitlistCount(function(newCount) {
+                        console.log("Counter incremented on thanks page, new value:", newCount);
+                        
+                        // Remove the parameter from the URL without refreshing
+                        const newUrl = window.location.pathname;
+                        window.history.replaceState({}, document.title, newUrl);
+                    });
+                }, 500);
+            }
+        });
+    </script>
 </body>
 </html> 
