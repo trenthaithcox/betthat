@@ -1,12 +1,15 @@
 // Firebase configuration for Bet That waitlist counter
+// Replace this configuration with your actual Firebase project credentials
+// from your Firebase console: Project Settings > Your Apps > SDK setup and configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC0qGKB0JLjgW_dKBXI7uJVz-NGdF-vJO8",
-  authDomain: "betthat-waitlist.firebaseapp.com",
-  projectId: "betthat-waitlist",
-  storageBucket: "betthat-waitlist.appspot.com",
-  messagingSenderId: "912345678901",
-  appId: "1:912345678901:web:abc123def456ghi789jkl",
-  databaseURL: "https://betthat-waitlist-default-rtdb.firebaseio.com"
+  apiKey: "AIzaSyDVe1TbVV1aem-i9M54zAh5rx1GuCYGt44",
+  authDomain: "bet-that-17a7e.firebaseapp.com",
+  databaseURL: "https://bet-that-17a7e-default-rtdb.firebaseio.com",
+  projectId: "bet-that-17a7e",
+  storageBucket: "bet-that-17a7e.firebasestorage.app",
+  messagingSenderId: "505082197838",
+  appId: "1:505082197838:web:98d8255889adc452dc901f",
+  measurementId: "G-2MYRLPMSV7"
 };
 
 // Initialize Firebase
