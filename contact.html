@@ -194,45 +194,48 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('contactForm');
             
-            // Only use custom handling when running locally 
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (form) {
+                console.log("Adding submit handler to contact form");
                 form.addEventListener('submit', function(e) {
-                    e.preventDefault();
+                    console.log("Contact form submitted");
                     
-                    const firstName = document.getElementById('firstName').value;
-                    const lastName = document.getElementById('lastName').value;
-                    const email = document.getElementById('email').value;
-                    const message = document.getElementById('message').value;
-                    
-                    // Send form data to the server
-                    fetch('/api/contact', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ firstName, lastName, email, message }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        document.getElementById('contactForm').classList.add('hidden');
-                        document.getElementById('thankYouMessage').classList.remove('hidden');
-                        
-                        // Increment the Firebase counter
-                        incrementWaitlistCount();
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        alert('There was an error submitting your form. Please try again.');
+                    // Increment the Firebase counter for all submissions
+                    incrementWaitlistCount((newCount) => {
+                        console.log('Contact form - counter incremented to:', newCount);
                     });
-                });
-            } else {
-                // When on GitHub Pages, form will be handled by Formspree directly
-                
-                // Add increment logic for production environment
-                form.addEventListener('submit', function() {
-                    // Increment the Firebase counter
-                    incrementWaitlistCount();
+                    
+                    // Only use custom handling when running locally 
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log("Local environment detected, handling submission locally");
+                        e.preventDefault();
+                        
+                        const firstName = document.getElementById('firstName').value;
+                        const lastName = document.getElementById('lastName').value;
+                        const email = document.getElementById('email').value;
+                        const message = document.getElementById('message').value;
+                        
+                        // Send form data to the server
+                        fetch('/api/contact', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ firstName, lastName, email, message }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            document.getElementById('contactForm').classList.add('hidden');
+                            document.getElementById('thankYouMessage').classList.remove('hidden');
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            alert('There was an error submitting your form. Please try again.');
+                        });
+                    } else {
+                        // When on GitHub Pages, form will be handled by Formspree directly
+                        console.log("Production environment detected, using Formspree");
+                    }
                 });
             }
         });

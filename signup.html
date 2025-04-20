@@ -156,14 +156,21 @@
             const form = document.getElementById('signupForm');
             const thankYouMessage = document.getElementById('thankYouMessage');
             
-            // Only handle custom submission when running locally
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            // For all environments, add counter increment on form submission
+            if (form) {
+                console.log("Adding submit handler to form");
                 form.addEventListener('submit', function(e) {
-                    // Only use the fetch API when running locally (server is available)
-                    const isLocalDevelopment = window.location.hostname === 'localhost' || 
-                                              window.location.hostname === '127.0.0.1';
+                    console.log("Form submitted");
+                    // Don't prevent default here, so it works with Formspree in production
                     
-                    if (isLocalDevelopment) {
+                    // Increment Firebase counter for all submissions
+                    incrementWaitlistCount((newCount) => {
+                        console.log('Counter incremented to:', newCount);
+                    });
+                    
+                    // For local development, handle the submission differently
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log("Local development detected, using fetch API");
                         e.preventDefault();
                         
                         const formData = {
@@ -187,41 +194,26 @@
                             // Hide form and show thank you message
                             form.classList.add('hidden');
                             thankYouMessage.classList.remove('hidden');
-                            
-                            // Increment the Firebase counter
-                            incrementWaitlistCount((newCount) => {
-                                console.log('Counter incremented, new value:', newCount);
-                                // Update display if counter is visible
-                                const counterElement = document.getElementById('userCounter');
-                                if (counterElement) updateCounterDisplay(counterElement, newCount);
-                            });
                         })
                         .catch(error => {
                             console.error('Error:', error);
                             alert('There was an error submitting your form. Please try again.');
                         });
                     } else {
-                        // When on GitHub Pages, form will be handled by Formspree
-                        // Just show the thank you message after submission
+                        // For GitHub Pages, let Formspree handle it
+                        console.log("Production environment detected, using Formspree");
                         
                         // Add a hidden field to redirect back to this page
-                        const hiddenField = document.createElement('input');
-                        hiddenField.type = 'hidden';
-                        hiddenField.name = '_next';
-                        hiddenField.value = window.location.href;
-                        form.appendChild(hiddenField);
-                        
-                        // Set up the flag to increment the counter on form submission
-                        form.addEventListener('submit', function() {
-                            // Increment the Firebase counter
-                            incrementWaitlistCount();
-                        });
-                        
-                        // We don't prevent default, let the form submit normally to Formspree
+                        if (!form.querySelector('input[name="_next"]')) {
+                            const hiddenField = document.createElement('input');
+                            hiddenField.type = 'hidden';
+                            hiddenField.name = '_next';
+                            hiddenField.value = window.location.href;
+                            form.appendChild(hiddenField);
+                        }
                     }
                 });
             }
-            // When on GitHub Pages, form will be handled by Formspree directly
         });
     </script>
     

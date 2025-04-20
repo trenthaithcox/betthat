@@ -1,6 +1,6 @@
 // Firebase configuration for Bet That waitlist counter
-// Replace this configuration with your actual Firebase project credentials
-// from your Firebase console: Project Settings > Your Apps > SDK setup and configuration
+console.log("Firebase config script loading...");
+
 const firebaseConfig = {
   apiKey: "AIzaSyDVe1TbVV1aem-i9M54zAh5rx1GuCYGt44",
   authDomain: "bet-that-17a7e.firebaseapp.com",
@@ -12,13 +12,33 @@ const firebaseConfig = {
   measurementId: "G-2MYRLPMSV7"
 };
 
+// Declare these variables at the top level so they're accessible throughout the file
+let database;
+let counterRef;
+
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-const counterRef = database.ref('waitlistCounter');
+try {
+  console.log("Initializing Firebase...");
+  firebase.initializeApp(firebaseConfig);
+  console.log("Firebase initialized successfully");
+  
+  database = firebase.database();
+  console.log("Firebase database reference created");
+  
+  counterRef = database.ref('waitlistCounter');
+  console.log("Counter reference created, path: 'waitlistCounter'");
+} catch (error) {
+  console.error("Error initializing Firebase:", error);
+}
 
 // Get current count from Firebase
 function getWaitlistCount(callback) {
+  if (!counterRef) {
+    console.error("Counter reference not available");
+    callback(2457);
+    return;
+  }
+
   counterRef.once('value', (snapshot) => {
     // Check if the value exists in Firebase
     if (snapshot.exists()) {
@@ -49,6 +69,12 @@ function getWaitlistCount(callback) {
 
 // Increment the counter in Firebase
 function incrementWaitlistCount(callback) {
+  if (!counterRef) {
+    console.error("Counter reference not available for increment");
+    if (callback) callback(2457);
+    return;
+  }
+
   console.log("Attempting to increment waitlist counter");
   
   // Use Firebase transaction to safely increment the counter
