@@ -5,38 +5,46 @@ console.log("Chatbot loader initializing");
 function loadChatbot() {
     console.log("Starting chatbot loading sequence");
     
-    // First, load the knowledge base
-    const knowledgeScript = document.createElement('script');
-    knowledgeScript.src = 'chatbot-knowledge.js';
-    knowledgeScript.async = true;
-    
-    // Once knowledge base is loaded, load the chatbot script
-    knowledgeScript.onload = function() {
-        console.log("Knowledge base loaded successfully");
+    try {
+        // First, load the knowledge base
+        const knowledgeScript = document.createElement('script');
+        knowledgeScript.src = 'chatbot-knowledge.js';
+        knowledgeScript.async = true;
         
-        // Create and add the chatbot script
-        const chatbotScript = document.createElement('script');
-        chatbotScript.src = 'chatbot.js';
-        chatbotScript.async = true;
-        
-        chatbotScript.onload = function() {
-            console.log("Chatbot script loaded successfully");
-            // The chatbot.js will initialize itself
+        // Once knowledge base is loaded, load the chatbot script
+        knowledgeScript.onload = function() {
+            console.log("Knowledge base loaded successfully");
+            console.log("Knowledge base available:", typeof window.betThatKnowledge !== 'undefined');
+            
+            // Create and add the chatbot script
+            const chatbotScript = document.createElement('script');
+            chatbotScript.src = 'chatbot.js';
+            chatbotScript.async = true;
+            
+            chatbotScript.onload = function() {
+                console.log("Chatbot script loaded successfully");
+                // Check if chatbot initialized
+                setTimeout(() => {
+                    console.log("Checking for chatbot toggle element:", !!document.querySelector('.ai-chatbot-toggle'));
+                }, 1000);
+            };
+            
+            chatbotScript.onerror = function(e) {
+                console.error("Failed to load chatbot script:", e);
+            };
+            
+            document.body.appendChild(chatbotScript);
         };
         
-        chatbotScript.onerror = function() {
-            console.error("Failed to load chatbot script");
+        knowledgeScript.onerror = function(e) {
+            console.error("Failed to load knowledge base:", e);
         };
         
-        document.body.appendChild(chatbotScript);
-    };
-    
-    knowledgeScript.onerror = function() {
-        console.error("Failed to load knowledge base");
-    };
-    
-    // Add the knowledge script to the document
-    document.body.appendChild(knowledgeScript);
+        // Add the knowledge script to the document
+        document.body.appendChild(knowledgeScript);
+    } catch (error) {
+        console.error("Error in chatbot loader:", error);
+    }
 }
 
 // Initialize when the DOM is fully loaded
