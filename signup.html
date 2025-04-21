@@ -163,6 +163,11 @@
                     console.log("Form submitted");
                     // Don't prevent default here, so it works with Formspree in production
                     
+                    // Increment Firebase counter for all submissions
+                    incrementWaitlistCount((newCount) => {
+                        console.log('Counter incremented to:', newCount);
+                    });
+                    
                     // For local development, handle the submission differently
                     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                         console.log("Local development detected, using fetch API");

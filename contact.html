@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Bet That</title>
+    <title>Bet That!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" href="betthatsquare.png" type="image/png">
     
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -85,18 +85,18 @@
                         <input type="hidden" name="_form" value="mblgvqep">
                         
                         <!-- Redirect after submission -->
-                        <input type="hidden" name="_next" value="thanks.html">
+                        <input type="hidden" name="_next" value="https://www.betthat.io/thanks.html?increment=true">
                         
                         <div class="text-center pt-4">
-                            <button type="submit" id="waitlistButton" class="download-btn bg-primary-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block">
+                            <button type="submit" class="download-btn bg-primary-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block">
                                 Send Message
                             </button>
                         </div>
                     </form>
                     
                     <div id="thankYouMessage" class="hidden text-center py-6">
-                        <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        <svg class="w-16 h-16 text-primary-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <h2 class="text-2xl font-bold mb-2">Thank You!</h2>
                         <p class="text-gray-700">We've received your message and will get back to you shortly.</p>
@@ -199,27 +199,42 @@
                 form.addEventListener('submit', function(e) {
                     console.log("Contact form submitted");
                     
+                    // Increment the Firebase counter for all submissions
+                    incrementWaitlistCount((newCount) => {
+                        console.log('Contact form - counter incremented to:', newCount);
+                    });
+                    
                     // Only use custom handling when running locally 
                     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                         console.log("Local environment detected, handling submission locally");
                         e.preventDefault();
                         
-                        // Show thank you message directly without reload
-                        document.getElementById('contactForm').classList.add('hidden');
-                        document.getElementById('thankYouMessage').classList.remove('hidden');
-                        
-                        // Simulate form submission for testing purposes
                         const firstName = document.getElementById('firstName').value;
                         const lastName = document.getElementById('lastName').value;
                         const email = document.getElementById('email').value;
                         const message = document.getElementById('message').value;
                         
-                        console.log('Form data:', { firstName, lastName, email, message });
-                        console.log('Success: Form submitted locally');
+                        // Send form data to the server
+                        fetch('/api/contact', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ firstName, lastName, email, message }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            document.getElementById('contactForm').classList.add('hidden');
+                            document.getElementById('thankYouMessage').classList.remove('hidden');
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            alert('There was an error submitting your form. Please try again.');
+                        });
                     } else {
-                        // When not on localhost, form will be handled by Formspree 
+                        // When on GitHub Pages, form will be handled by Formspree directly
                         console.log("Production environment detected, using Formspree");
-                        // Form will submit normally, and redirect to the thanks page
                     }
                 });
             }
