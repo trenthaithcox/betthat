@@ -17,7 +17,7 @@ const betThatKnowledge = {
             instagramUrl: "https://www.instagram.com/betthat.io/",
             twitterUrl: "https://x.com/betthat_io"
         },
-        mission: "Bringing back the handshake bet — no bookie, no vig. We're creating a social prediction platform that brings the fun, personal, and creative side of betting back to the people."
+        mission: "Formalize Internet Discourse and Put Your Money Where Your Mouth Is"
     },
     
     // Product information
