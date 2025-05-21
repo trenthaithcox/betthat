@@ -17,7 +17,7 @@ const betThatKnowledge = {
             instagramUrl: "https://www.instagram.com/betthat.io/",
             twitterUrl: "https://x.com/betthat_io"
         },
-        mission: "Formalize Internet Discourse and Put Your Money Where Your Mouth Is"
+        mission: "To Bring the Experience Of The Handshake Bet To the Online Space"
     },
     
     // Product information
@@ -35,23 +35,23 @@ const betThatKnowledge = {
         howItWorks: [
             {
                 step: 1,
-                title: "Post a Bet",
-                description: "Make a prediction about anything — sports, music drops, trending drama, or even personal events. Set the terms and stakes."
+                title: "Posting a Bet",
+                description: "Simply type out your own terms on anything verifiable on the internet, set your own odds, and post to interest organized communities or send directly to a friend"
             },
             {
                 step: 2,
-                title: "Challenge or Accept",
-                description: "Invite friends to take your bet or browse public ones and join in. No bookie, no odds — just peer vs. peer."
+                title: "Accepting a Bet",
+                description: "Scroll through posted bets or challenge someone directly with a link. Discover bets on explore pages similar to existing social media platforms"
             },
             {
                 step: 3,
                 title: "Win & Build Your Rep",
-                description: "When you win, you get the satisfaction of being right. Build credibility and a reputation for accurate predictions."
+                description: "Track your wins and losses, climb social leaderboards, and boast about your results in communities"
             },
             {
                 step: 4, 
                 title: "Moderate & Play Free",
-                description: "Help settle disputed bets. It's our way of keeping things fair and community-driven."
+                description: "Earn money for reviewing bets on our community review tab"
             }
         ],
         features: [
