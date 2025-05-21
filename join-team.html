@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bet That!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="betthatsquare.png" type="image/png">
+</head>
+<body class="font-sans bg-soft-blue min-h-screen" style="background-color: #E6F0FF;">
+    <!-- Nav Menu -->
+    <nav class="fixed top-0 left-0 w-full p-4 z-50 flex justify-between items-center">
+        <button id="menuToggle" class="text-gray-800 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <a href="index.html" class="font-bold text-xl text-primary-500" style="color: #4096FF;">Bet That</a>
+    </nav>
+
+    <!-- Side Drawer Menu -->
+    <div id="sideMenu" class="fixed top-0 left-0 w-64 h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
+        <div class="p-6">
+            <button id="closeMenu" class="absolute top-4 right-4 text-gray-800 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <ul class="mt-8 space-y-4">
+                <li><a href="index.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Home</a></li>
+                <li><a href="how-it-works.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">How It Works</a></li>
+                <li><a href="faq.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">FAQ</a></li>
+                <li><a href="contact.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Overlay when menu is open -->
+    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out z-40"></div>
+
+    <!-- Hero Section -->
+    <section class="content-section px-4 py-16 mt-16 relative text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Join the <span class="text-primary-500" style="color: #4096FF;">Bet That</span> Team</h1>
+        <p class="text-xl text-gray-700 mb-6 max-w-3xl mx-auto">A student-led startup based at UCLA building the future of social betting.</p>
+        
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8 mb-4">
+            <p class="text-lg text-gray-700 mb-6">Offering up to <span class="font-bold">$3,000</span> in total compensation for exceptional applicants this spring. Ready to join us?</p>
+            
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSev_nmxk8RMnUAcDU72MfqbsN0fDCzlTqc7XfYenQSe314inQ/viewform" target="_blank" rel="noopener noreferrer" class="download-btn bg-primary-500 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-primary-600 transition inline-flex items-center" style="background-color: #4096FF;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Apply Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="px-4 pb-16">
+        <div class="max-w-5xl mx-auto">
+            <!-- About Us Section -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">About Bet That</h2>
+                
+                <p class="text-lg text-gray-700 mb-6">We're building a peer-to-peer betting and social media platform to bring back the fun, creative, and personal side of betting. Our platform allows users to create and accept unique bets on anything—from sports to entertainment—while fostering community and friendly competition.</p>
+            </div>
+            
+            <!-- What We're Looking For -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Who We're Looking For</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-blue-50 rounded-xl p-6 hover:shadow-md transition duration-300">
+                        <h3 class="text-xl font-bold mb-3">Student Developers</h3>
+                        <p class="text-gray-700">Talented student programmers with experience in mobile or web development. Strong problem-solving skills and a passion for creating engaging user experiences.</p>
+                    </div>
+                    
+                    <div class="bg-blue-50 rounded-xl p-6 hover:shadow-md transition duration-300">
+                        <h3 class="text-xl font-bold mb-3">Student Designers</h3>
+                        <p class="text-gray-700">Creative UI/UX designers who can help craft intuitive, beautiful interfaces. Experience with mobile app design and a strong portfolio are valued.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Why Join Us (shortened) -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Why Join Us?</h2>
+                
+                <div class="space-y-4">
+                    <div class="border-l-4 border-primary-500 pl-6 py-2" style="border-color: #4096FF;">
+                        <h3 class="text-xl font-bold mb-2">Real-World Experience</h3>
+                        <p class="text-gray-700">Work on an actual product with real users and gain valuable startup experience.</p>
+                    </div>
+                    
+                    <div class="border-l-4 border-primary-500 pl-6 py-2" style="border-color: #4096FF;">
+                        <h3 class="text-xl font-bold mb-2">Compensation</h3>
+                        <p class="text-gray-700">Earn up to $3,000 for exceptional contributions to our team this quarter.</p>
+                    </div>
+                    
+                    <div class="border-l-4 border-primary-500 pl-6 py-2" style="border-color: #4096FF;">
+                        <h3 class="text-xl font-bold mb-2">UCLA Network</h3>
+                        <p class="text-gray-700">Connect with other talented UCLA students and alumni in the tech and startup space.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Application Call to Action (bottom reminder) -->
+            <div class="text-center bg-white rounded-2xl shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Ready to Apply?</h2>
+                <p class="text-lg text-gray-700 mb-6">Tell us about yourself, your skills, and why you'd be a great fit for our company!</p>
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSev_nmxk8RMnUAcDU72MfqbsN0fDCzlTqc7XfYenQSe314inQ/viewform" target="_blank" rel="noopener noreferrer" class="download-btn bg-primary-500 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-primary-600 transition inline-flex items-center" style="background-color: #4096FF;">
+                    Apply Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto p-6 bg-white bg-opacity-50 rounded-t-3xl">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-center md:text-left mb-4 md:mb-0">Made with 🔥 in Los Angeles, CA</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-primary-500">Privacy</a>
+                    <a href="join-team.html" class="text-gray-700 hover:text-primary-500">Join Our Team</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-500">Contact</a>
+                </div>
+            </div>
+            <div class="flex justify-center mt-6 space-x-8">
+                <a href="https://www.instagram.com/betthat.io/" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+                <a href="https://x.com/betthat_io" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="chatbot-loader.js"></script>
+</body>
+</html> 

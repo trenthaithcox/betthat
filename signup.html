@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bet That!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="betthatsquare.png" type="image/png">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+</head>
+<body class="font-sans bg-soft-blue min-h-screen page-transition" style="background-color: #E6F0FF;">
+    <!-- Nav Menu -->
+    <nav class="fixed top-0 left-0 w-full p-4 z-50 flex justify-between items-center">
+        <button id="menuToggle" class="text-gray-800 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <a href="index.html" class="font-bold text-xl text-primary-500" style="color: #4096FF;">Bet That</a>
+    </nav>
+
+    <!-- Side Drawer Menu -->
+    <div id="sideMenu" class="fixed top-0 left-0 w-64 h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
+        <div class="p-6">
+            <button id="closeMenu" class="absolute top-4 right-4 text-gray-800 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <ul class="mt-8 space-y-4">
+                <li><a href="index.html" class="text-xl font-semibold text-primary-500" style="color: #4096FF;">Home</a></li>
+                <li><a href="how-it-works.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">How It Works</a></li>
+                <li><a href="faq.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">FAQ</a></li>
+                <li><a href="contact.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Overlay when menu is open -->
+    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out z-40"></div>
+
+    <!-- Content Section -->
+    <section class="content-section px-4 py-16 mt-12 relative signup-content">
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8 signup-container" style="opacity: 0; transform: translateY(20px);">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 text-center">Stay in the Loop</h1>
+            <p class="text-lg text-gray-700 mb-8 text-center">Be the first to know when Bet That launches and get early access to our beta!</p>
+            
+            <!-- Animated Stats Counter Section -->
+            <div class="bg-white rounded-xl shadow-md px-8 py-6 mb-2 max-w-md mx-auto">
+                <div class="flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="flex items-baseline justify-center">
+                            <span class="text-4xl font-bold text-primary-500 waitlist-counter" id="userCounter" style="color: #4096FF;">0</span>
+                            <span class="text-2xl font-medium ml-2">+</span>
+                        </div>
+                        <p class="text-gray-700 mt-2">users have joined our waitlist</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="floating-emoji">🔥</div>
+            <div class="floating-emoji">🌶️</div>
+            <div class="floating-emoji">✨</div>
+            
+            <div class="order-1 lg:order-none">
+                <div class="bg-white p-8 rounded-xl shadow-xl">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Join the Waitlist</h2>
+                    <form id="signupForm" action="https://formspree.io/f/xnnpklyl" method="POST" class="space-y-4">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="updates" name="updates" type="checkbox" class="h-4 w-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500" checked>
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="updates" class="font-medium text-gray-700">I'd like to receive updates about Bet That</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Honeypot field to prevent spam -->
+                        <input type="text" name="_gotcha" style="display:none">
+                        
+                        <!-- Formspree form identifier -->
+                        <input type="hidden" name="_form" value="xnnpklyl">
+                        
+                        <!-- Redirect after submission -->
+                        <input type="hidden" name="_next" value="https://www.betthat.io/thanks.html?increment=true">
+                        
+                        <div class="pt-2">
+                            <button type="submit" class="w-full download-btn bg-primary-500 text-white font-medium py-2.5 px-4 rounded-lg shadow-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50 transition-colors">
+                                Join Waitlist
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="thankYouMessage" class="hidden text-center py-10">
+                <svg class="w-16 h-16 text-primary-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h2 class="text-2xl font-bold mb-2">Thanks for joining!</h2>
+                <p class="text-gray-700 mb-6">We've added you to our list. You'll be the first to know when we launch!</p>
+                <a href="index.html" class="text-primary-500 font-semibold hover:underline">Return to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto p-6 bg-white bg-opacity-50 rounded-t-3xl">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-center md:text-left mb-4 md:mb-0">Made with 🔥 in Los Angeles, CA</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-primary-500">Privacy</a>
+                    <a href="join-team.html" class="text-gray-700 hover:text-primary-500">Join Our Team</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-primary-500">Contact</a>
+                </div>
+            </div>
+            <div class="flex justify-center mt-6 space-x-8">
+                <a href="https://www.instagram.com/betthat.io/" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+                <a href="https://x.com/betthat_io" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="firebase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signupForm');
+            const thankYouMessage = document.getElementById('thankYouMessage');
+            
+            // For all environments, add counter increment on form submission
+            if (form) {
+                console.log("Adding submit handler to form");
+                form.addEventListener('submit', function(e) {
+                    console.log("Form submitted");
+                    // Don't prevent default here, so it works with Formspree in production
+                    
+                    // Increment Firebase counter for all submissions
+                    incrementWaitlistCount((newCount) => {
+                        console.log('Counter incremented to:', newCount);
+                    });
+                    
+                    // For local development, handle the submission differently
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log("Local development detected, using fetch API");
+                        e.preventDefault();
+                        
+                        const formData = {
+                            firstName: document.getElementById('firstName').value,
+                            lastName: document.getElementById('lastName').value,
+                            email: document.getElementById('email').value,
+                            updates: document.getElementById('updates').checked
+                        };
+                        
+                        // Send data to the server
+                        fetch('/api/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            // Hide form and show thank you message
+                            form.classList.add('hidden');
+                            thankYouMessage.classList.remove('hidden');
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('There was an error submitting your form. Please try again.');
+                        });
+                    } else {
+                        // For GitHub Pages, let Formspree handle it
+                        console.log("Production environment detected, using Formspree");
+                        
+                        // Add a hidden field to redirect back to this page
+                        if (!form.querySelector('input[name="_next"]')) {
+                            const hiddenField = document.createElement('input');
+                            hiddenField.type = 'hidden';
+                            hiddenField.name = '_next';
+                            hiddenField.value = window.location.href;
+                            form.appendChild(hiddenField);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    
+    <!-- Signup Page Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Signup page loaded, preparing animation");
+            // Get the signup container
+            const signupContainer = document.querySelector('.signup-container');
+            
+            // Explicitly set the initial state
+            if (signupContainer) {
+                signupContainer.style.opacity = "0";
+                signupContainer.style.transform = "translateY(50px)";
+                
+                console.log("Initial state set:", 
+                    signupContainer.style.opacity,
+                    signupContainer.style.transform);
+                
+                // Trigger animation after a short delay
+                setTimeout(function() {
+                    console.log("Applying animation class");
+                    signupContainer.classList.add('animate-in');
+                    
+                    // Force reflow to ensure animation plays
+                    void signupContainer.offsetWidth;
+                    
+                    // Remove inline styles to allow CSS transitions to work
+                    signupContainer.style.opacity = "";
+                    signupContainer.style.transform = "";
+                }, 200);
+            }
+        });
+    </script>
+    <script src="chatbot-loader.js"></script>
+</body>
+</html> 
