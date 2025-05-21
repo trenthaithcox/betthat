@@ -21,4 +21,4 @@ jobs:
           branch: gh-pages
           folder: .
           clean: true
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.GH_TOKEN }} 
