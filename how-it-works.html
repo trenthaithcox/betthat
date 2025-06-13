@@ -12,87 +12,60 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="betthatsquare.png" type="image/png">
 </head>
-<body class="font-sans bg-soft-blue min-h-screen" style="background-color: #E6F0FF;">
-    <!-- Nav Menu -->
-    <nav class="fixed top-0 left-0 w-full p-4 z-50 flex justify-between items-center">
-        <button id="menuToggle" class="text-gray-800 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-        <a href="index.html" class="font-bold text-xl text-primary-500" style="color: #4096FF;">Bet That</a>
-    </nav>
-
-    <!-- Side Drawer Menu -->
-    <div id="sideMenu" class="fixed top-0 left-0 w-64 h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
-        <div class="p-6">
-            <button id="closeMenu" class="absolute top-4 right-4 text-gray-800 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <ul class="mt-8 space-y-4">
-                <li><a href="index.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Home</a></li>
-                <li><a href="how-it-works.html" class="text-xl font-semibold text-primary-500" style="color: #4096FF;">How It Works</a></li>
-                <li><a href="faq.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">FAQ</a></li>
-                <li><a href="contact.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Contact</a></li>
-            </ul>
+<body class="font-sans min-h-screen" style="background-color: #FFFFFF;">
+    <!-- New Navigation Bar -->
+    <nav class="absolute top-0 left-0 right-0 p-8 flex justify-between items-center z-50">
+        <div class="text-2xl font-bold" style="color: #2E8B90;">
+            <a href="index.html">
+                <img src="betthat full adjusted.png" alt="Bet That Logo" class="h-12">
+            </a>
         </div>
-    </div>
-
-    <!-- Overlay when menu is open -->
-    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out z-40"></div>
+        <div class="hidden md:flex space-x-6 text-gray-700 text-sm md:text-base">
+            <a href="index.html" class="hover:text-gray-900">HOME</a>
+            <span class="text-gray-400">/</span>
+            <a href="how-it-works.html" class="hover:text-gray-900">HOW IT WORKS</a>
+            <span class="text-gray-400">/</span>
+            <a href="faq.html" class="hover:text-gray-900">FAQ</a>
+            <span class="text-gray-400">/</span>
+            <a href="join-team.html" class="hover:text-gray-900">JOBS</a>
+            <span class="text-gray-400">/</span>
+            <a href="contact.html" class="hover:text-gray-900">CONTACT US</a>
+        </div>
+    </nav>
 
     <!-- Content Section -->
     <section class="content-section px-4 py-12 mt-16 relative">
         <div class="max-w-5xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-8">How <span class="text-primary-500" style="color: #4096FF;">Bet That</span> Works</h1>
-            <p class="text-xl text-center text-gray-700 mb-12 max-w-3xl mx-auto">Simple, fun, and competitive prediction tracking with friends</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                <!-- Step 1 -->
-                <div class="bg-white rounded-2xl shadow-md p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="flex items-start gap-6">
-                        <div class="text-primary-500 text-3xl font-bold mt-1 min-w-[40px] transition-all duration-300 group-hover:text-primary-700 group-hover:text-4xl group-hover:transform" style="color: #4096FF;">01</div>
-                        <div>
-                            <h2 class="text-2xl font-bold mb-3 text-gray-900">Post a Bet</h2>
-                            <p class="text-gray-700 leading-relaxed">Make a prediction about anything — sports, music drops, trending drama, your roommate's love life. Set the terms, set the stakes, and throw it out there.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 2 -->
-                <div class="bg-white rounded-2xl shadow-md p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="flex items-start gap-6">
-                        <div class="text-primary-500 text-3xl font-bold mt-1 min-w-[40px] transition-all duration-300 group-hover:text-primary-700 group-hover:text-4xl group-hover:transform" style="color: #4096FF;">02</div>
-                        <div>
-                            <h2 class="text-2xl font-bold mb-3 text-gray-900">Challenge or Accept</h2>
-                            <p class="text-gray-700 leading-relaxed">Invite friends to take your bet or browse public ones and jump in. No bookie, no odds — just peer vs. peer, like it used to be.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 3 -->
-                <div class="bg-white rounded-2xl shadow-md p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="flex items-start gap-6">
-                        <div class="text-primary-500 text-3xl font-bold mt-1 min-w-[40px] transition-all duration-300 group-hover:text-primary-700 group-hover:text-4xl group-hover:transform" style="color: #4096FF;">03</div>
-                        <div>
-                            <h2 class="text-2xl font-bold mb-3 text-gray-900">Win & Build Your Rep</h2>
-                            <p class="text-gray-700 leading-relaxed">When you win, you get the pot (or the clout). Earn credibility, climb the leaderboard, and build a rep for calling it right.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Step 4 -->
-                <div class="bg-white rounded-2xl shadow-md p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="flex items-start gap-6">
-                        <div class="text-primary-500 text-3xl font-bold mt-1 min-w-[40px] transition-all duration-300 group-hover:text-primary-700 group-hover:text-4xl group-hover:transform" style="color: #4096FF;">04</div>
-                        <div>
-                            <h2 class="text-2xl font-bold mb-3 text-gray-900">Moderate & Play Free</h2>
-                            <p class="text-gray-700 leading-relaxed">Help settle disputed bets and earn free play credits. It's our way of keeping things fair — and letting everyone get in on the action, no cash required.</p>
-                        </div>
-                    </div>
-                </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold text-center text-gray-900 mb-4">How <span style="color: #204494;">Bet That</span> Works</h1>
+            <div class="max-w-4xl mx-auto mt-0">
+                <section class="mb-4 mt-4 text-center">
+                    <h2 class="text-lg md:text-xl font-extrabold mb-4">
+                        <span class="font-extrabold">Challenge or Accept:</span>
+                        <span class="font-normal"> Scroll through your feed until you find a post that entices you. Jump in on the other side and <span class="font-bold">place your bet</span>. Peer vs peer, no middle man, just like it should be.</span>
+                    </h2>
+                    <img src="demo-app.png" alt="Bet That! app demo screenshot" class="mx-auto rounded-xl border-none" style="max-width: 220px; width: 100%; border: none; outline: none; box-shadow: none;">
+                </section>
+                <section class="mb-4 mt-4 text-center">
+                    <h2 class="text-lg md:text-xl font-extrabold mb-4">
+                        <span class="font-extrabold">Post a Bet:</span>
+                        <span class="font-normal"> Make a prediction about <span class="font-bold">anything</span> — sports, music, celebrity drama, something on campus.</span>
+                    </h2>
+                    <img src="demo-app1.png" alt="Bet That! app demo screenshot" class="mx-auto rounded-xl border-none" style="max-width: 220px; width: 100%; border: none; outline: none; box-shadow: none;">
+                </section>
+                <section class="mb-4 mt-4 text-center">
+                    <h2 class="text-lg md:text-xl font-extrabold mb-4">
+                        <span class="font-extrabold">Win Big:</span>
+                        <span class="font-normal"> Get paid, climb the leaderboard, build a following, and <span class="font-bold">keep posting and accepting bets</span> until you rise to the top.</span>
+                    </h2>
+                    <img src="demo-app3.png" alt="Bet That! app demo screenshot" class="mx-auto rounded-xl border-none" style="max-width: 220px; width: 100%; border: none; outline: none; box-shadow: none;">
+                </section>
+                <section class="mb-4 mt-4 text-center">
+                    <h2 class="text-lg md:text-xl font-extrabold mb-4">
+                        <span class="font-extrabold">Moderate & Play Free:</span>
+                        <span class="font-normal"> Help settle disputed bets and <span class="font-bold">earn free play credits</span>.</span>
+                    </h2>
+                    <img src="demo-app4.png" alt="Bet That! app demo screenshot" class="mx-auto rounded-xl border-none" style="max-width: 220px; width: 100%; border: none; outline: none; box-shadow: none;">
+                </section>
             </div>
             
             <div class="text-center bg-white rounded-2xl shadow-md p-8 max-w-3xl mx-auto">

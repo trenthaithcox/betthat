@@ -16,148 +16,136 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
-<body class="font-sans bg-soft-blue min-h-screen" style="background-color: #E6F0FF;">
-    <!-- Nav Menu -->
-    <nav class="fixed top-0 left-0 w-full p-4 z-50 flex justify-between items-center">
-        <button id="menuToggle" class="text-gray-800 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-        <a href="index.html" class="font-bold text-xl text-primary-500" style="color: #4096FF;">Bet That</a>
+<body class="font-sans min-h-screen" style="background-color: #FFFFFF;">
+    <!-- New Navigation Bar -->
+    <nav class="absolute top-0 left-0 right-0 p-8 flex justify-between items-center z-50">
+        <div class="text-2xl font-bold" style="color: #2E8B90;">
+            <a href="index.html">
+                <img src="betthat full adjusted.png" alt="Bet That Logo" class="h-12">
+            </a>
+        </div>
+        <div class="hidden md:flex space-x-6 text-gray-700 text-sm md:text-base">
+            <a href="index.html" class="hover:text-gray-900">HOME</a>
+            <span class="text-gray-400">/</span>
+            <a href="how-it-works.html" class="hover:text-gray-900">HOW IT WORKS</a>
+            <span class="text-gray-400">/</span>
+            <a href="faq.html" class="hover:text-gray-900">FAQ</a>
+            <span class="text-gray-400">/</span>
+            <a href="join-team.html" class="hover:text-gray-900">JOBS</a>
+            <span class="text-gray-400">/</span>
+            <a href="contact.html" class="hover:text-gray-900" style="color: #204494;">CONTACT US</a>
+        </div>
     </nav>
 
-    <!-- Side Drawer Menu -->
-    <div id="sideMenu" class="fixed top-0 left-0 w-64 h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
-        <div class="p-6">
-            <button id="closeMenu" class="absolute top-4 right-4 text-gray-800 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <ul class="mt-8 space-y-4">
-                <li><a href="index.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">Home</a></li>
-                <li><a href="how-it-works.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">How It Works</a></li>
-                <li><a href="faq.html" class="text-xl font-semibold hover:text-primary-500" onmouseover="this.style.color='#4096FF'" onmouseout="this.style.color=''">FAQ</a></li>
-                <li><a href="contact.html" class="text-xl font-semibold text-primary-500" style="color: #4096FF;">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Overlay when menu is open -->
-    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out z-40"></div>
-
     <!-- Content Section -->
-    <section class="content-section px-4 py-16 mt-12 relative">
-        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 text-center">Contact Us</h1>
-            <p class="text-lg text-gray-700 mb-8 text-center">Have a question or want to learn more about Bet That? We'd love to hear from you!</p>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <!-- Contact Form -->
-                <div>
-                    <h2 class="text-2xl font-bold mb-4">Send Us a Message</h2>
-                    <form id="contactForm" class="space-y-4" action="https://formspree.io/f/mblgvqep" method="POST">
-                        <div>
-                            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                            <input type="text" id="firstName" name="firstName" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" required>
-                        </div>
-                        
-                        <div>
-                            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" required>
-                        </div>
-                        
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition" required>
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your Question</label>
-                            <textarea id="message" name="message" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition resize-none" required></textarea>
-                        </div>
-
-                        <!-- Honeypot field to prevent spam -->
-                        <input type="text" name="_gotcha" style="display:none">
-                        
-                        <!-- Formspree form identifier -->
-                        <input type="hidden" name="_form" value="mblgvqep">
-                        
-                        <!-- Redirect after submission -->
-                        <input type="hidden" name="_next" value="https://www.betthat.io/thanks.html?increment=true">
-                        
-                        <div class="text-center pt-4">
-                            <button type="submit" class="download-btn bg-primary-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-primary-600 transition inline-block">
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
-                    
-                    <div id="thankYouMessage" class="hidden text-center py-6">
-                        <svg class="w-16 h-16 text-primary-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <h2 class="text-2xl font-bold mb-2">Thank You!</h2>
-                        <p class="text-gray-700">We've received your message and will get back to you shortly.</p>
+    <section class="content-section px-4 py-16 mt-16 relative">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 text-center">Contact Us</h1>
+        <p class="text-lg text-gray-700 mb-8 text-center">Have a question or want to learn more about Bet That? We'd love to hear from you!</p>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <!-- Contact Form -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-4">Send Us a Message</h2>
+                <form id="contactForm" class="space-y-4" action="https://formspree.io/f/mblgvqep" method="POST">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 transition" style="--tw-ring-color: #204494; --tw-border-color: #204494;" required>
                     </div>
-                </div>
-                
-                <!-- Other Contact Methods -->
-                <div>
-                    <h2 class="text-2xl font-bold mb-6">Other Ways to Reach Us</h2>
                     
-                    <div class="space-y-8">
-                        <!-- Email -->
-                        <div class="flex items-start">
-                            <div class="bg-primary-500 rounded-full p-3 mr-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 transition" style="--tw-ring-color: #204494; --tw-border-color: #204494;" required>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 transition" style="--tw-ring-color: #204494; --tw-border-color: #204494;" required>
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your Question</label>
+                        <textarea id="message" name="message" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 transition resize-none" style="--tw-ring-color: #204494; --tw-border-color: #204494;" required></textarea>
+                    </div>
+
+                    <!-- Honeypot field to prevent spam -->
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <!-- Formspree form identifier -->
+                    <input type="hidden" name="_form" value="mblgvqep">
+                    
+                    <!-- Redirect after submission -->
+                    <input type="hidden" name="_next" value="https://www.betthat.io/thanks.html?increment=true">
+                    
+                    <div class="text-center pt-4">
+                        <button type="submit" class="download-btn text-white font-bold py-3 px-8 rounded-full shadow-lg transition inline-block bg-accent-color hover:bg-accent-dark">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="thankYouMessage" class="hidden text-center py-6">
+                    <svg class="w-16 h-16 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #204494;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h2 class="text-2xl font-bold mb-2">Thank You!</h2>
+                    <p class="text-gray-700">We've received your message and will get back to you shortly.</p>
+                </div>
+            </div>
+            
+            <!-- Other Contact Methods -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6">Other Ways to Reach Us</h2>
+                
+                <div class="space-y-8">
+                    <!-- Email -->
+                    <div class="flex items-start">
+                        <div class="rounded-full p-3 mr-4 text-white bg-accent-color">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Email Us</h3>
+                            <p class="text-gray-600 mb-2">For general inquiries and support:</p>
+                            <a href="mailto:founders@betthat.io" class="font-bold hover:underline" style="color: #204494;">founders@betthat.io</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div class="flex items-start">
+                        <div class="rounded-full p-3 mr-4 text-white bg-accent-color">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Connect on Social Media</h3>
+                            <p class="text-gray-600 mb-4">Follow us for updates, tips, and more:</p>
+                            <div class="flex space-x-4">
+                                <a href="https://www.instagram.com/betthat.io/" target="_blank" rel="noopener noreferrer" class="flex items-center text-gray-700 transition" style="color: #204494;">
+                                    <i class="fab fa-instagram text-2xl mr-2"></i>
+                                    <span>@betthat.io</span>
+                                </a>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-semibold">Email Us</h3>
-                                <p class="text-gray-600 mb-2">For general inquiries and support:</p>
-                                <a href="mailto:founders@betthat.io" class="text-primary-500 font-bold hover:underline">founders@betthat.io</a>
+                            <div class="mt-3">
+                                <a href="https://x.com/betthat_io" target="_blank" rel="noopener noreferrer" class="flex items-center text-gray-700 transition" style="color: #204494;">
+                                    <i class="fab fa-twitter text-2xl mr-2"></i>
+                                    <span>@betthat_io</span>
+                                </a>
                             </div>
                         </div>
-                        
-                        <!-- Social Media -->
-                        <div class="flex items-start">
-                            <div class="bg-primary-500 rounded-full p-3 mr-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold">Connect on Social Media</h3>
-                                <p class="text-gray-600 mb-4">Follow us for updates, tips, and more:</p>
-                                <div class="flex space-x-4">
-                                    <a href="https://www.instagram.com/betthat.io/" target="_blank" rel="noopener noreferrer" class="flex items-center text-gray-700 hover:text-primary-500 transition">
-                                        <i class="fab fa-instagram text-2xl mr-2"></i>
-                                        <span>@betthat.io</span>
-                                    </a>
-                                </div>
-                                <div class="mt-3">
-                                    <a href="https://x.com/betthat_io" target="_blank" rel="noopener noreferrer" class="flex items-center text-gray-700 hover:text-primary-500 transition">
-                                        <i class="fab fa-twitter text-2xl mr-2"></i>
-                                        <span>@betthat_io</span>
-                                    </a>
-                                </div>
-                            </div>
+                    </div>
+                    
+                    <!-- Response Time -->
+                    <div class="flex items-start">
+                        <div class="rounded-full p-3 mr-4 text-white bg-accent-color">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                         </div>
-                        
-                        <!-- Response Time -->
-                        <div class="flex items-start">
-                            <div class="bg-primary-500 rounded-full p-3 mr-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold">Response Time</h3>
-                                <p class="text-gray-600">We typically respond to inquiries within 24-48 hours during business days.</p>
-                            </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Response Time</h3>
+                            <p class="text-gray-600">We typically respond to inquiries within 24-48 hours during business days.</p>
                         </div>
                     </div>
                 </div>
@@ -171,16 +159,16 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-center md:text-left mb-4 md:mb-0">Made with 🔥 in Los Angeles, CA</p>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-700 hover:text-primary-500">Privacy</a>
-                    <a href="join-team.html" class="text-gray-700 hover:text-primary-500">Join Our Team</a>
-                    <a href="contact.html" class="text-gray-700 hover:text-primary-500">Contact</a>
+                    <a href="#" class="text-gray-700 hover:text-gray-900" style="color: #204494;">Privacy</a>
+                    <a href="join-team.html" class="text-gray-700 hover:text-gray-900" style="color: #204494;">Join Our Team</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-gray-900" style="color: #204494;">Contact</a>
                 </div>
             </div>
             <div class="flex justify-center mt-6 space-x-8">
-                <a href="https://www.instagram.com/betthat.io/" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/betthat.io/" class="text-gray-700 hover:text-gray-900" target="_blank" rel="noopener noreferrer" style="color: #204494;">
                     <i class="fab fa-instagram fa-2x"></i>
                 </a>
-                <a href="https://x.com/betthat_io" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
+                <a href="https://x.com/betthat_io" class="text-gray-700 hover:text-gray-900" target="_blank" rel="noopener noreferrer" style="color: #204494;">
                     <i class="fab fa-twitter fa-2x"></i>
                 </a>
             </div>

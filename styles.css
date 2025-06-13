@@ -4,6 +4,88 @@
     --primary-dark: #2B7DE1; /* Dark blue */
     --secondary-color: #3D8EF7; /* Secondary blue */
     --bg-color: #E6F0FF; /* Very light blue */
+    --accent-dark-color: #1a3778; /* Darker shade for hover */
+}
+
+/* Satoshi Font Declaration */
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-Light.otf') format('opentype');
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-Black.otf') format('opentype');
+    font-weight: 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-Italic.otf') format('opentype');
+    font-weight: 400;
+    font-display: swap;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-LightItalic.otf') format('opentype');
+    font-weight: 300;
+    font-display: swap;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-MediumItalic.otf') format('opentype');
+    font-weight: 500;
+    font-display: swap;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-BoldItalic.otf') format('opentype');
+    font-weight: 700;
+    font-display: swap;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('./fonts/Satoshi-BlackItalic.otf') format('opentype');
+    font-weight: 900;
+    font-display: swap;
+    font-style: italic;
 }
 
 /* Apply custom colors to Tailwind classes */
@@ -12,223 +94,71 @@
 }
 
 .text-primary-500 {
-    color: var(--primary-color) !important;
+    color: #204494 !important;
 }
 
 .bg-primary-500 {
-    background-color: var(--primary-color) !important;
+    background-color: #204494 !important;
 }
 
 .bg-primary-600 {
-    background-color: var(--primary-dark) !important;
+    background-color: var(--accent-dark-color) !important;
 }
 
 .hover\:text-primary-500:hover {
-    color: var(--primary-color) !important;
+    color: #204494 !important;
 }
 
 .border-primary-500 {
-    border-color: var(--primary-color) !important;
+    border-color: #204494 !important;
+}
+
+.bg-accent-color {
+    background-color: #204494 !important;
+}
+
+.hover\:bg-accent-dark:hover {
+    background-color: var(--accent-dark-color) !important;
 }
 
 /* Custom styles */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Satoshi', sans-serif !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: var(--bg-color) !important;
+    background-color: #FFFFFF !important; /* Set background to white color */
 }
 
-/* Floating emojis animation */
-.floating-emoji {
-    position: absolute;
-    font-size: 2rem;
-    opacity: 0.6;
-    animation: float 8s ease-in-out infinite;
-    z-index: 5;
+.button-primary-text {
+    color: #1A202C; /* Corresponds to Tailwind's text-gray-900 */
 }
 
-.floating-emoji:nth-child(1) {
-    top: 20%;
-    left: 15%;
-    animation-delay: 0s;
-}
-
-.floating-emoji:nth-child(2) {
-    top: 40%;
-    right: 20%;
-    animation-delay: 2s;
-}
-
-.floating-emoji:nth-child(3) {
-    bottom: 30%;
-    left: 25%;
-    animation-delay: 4s;
-}
-
-.floating-emoji:nth-child(4) {
-    bottom: 40%;
-    right: 25%;
-    animation-delay: 6s;
-}
-
-.floating-emoji:nth-child(5) {
-    top: 30%;
-    right: 10%;
-    animation-delay: 1s;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
-}
-
-/* Responsive hero section */
-.hero-section {
-    min-height: calc(100vh - 120px); /* Adjust for footer */
-}
-
-/* QR code container */
-.qr-container {
-    transition: transform 0.3s ease;
-}
-
-.qr-container:hover {
-    transform: scale(1.05);
-}
-
-/* Download button pulse effect */
-.download-btn {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.download-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.download-btn::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150%;
-    height: 150%;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.5s ease;
-}
-
-.download-btn:active::after {
-    transform: translate(-50%, -50%) scale(1);
-}
-
-/* Side menu animation */
-#sideMenu.open {
-    transform: translateX(0);
-}
-
-#overlay.show {
-    opacity: 0.5;
-    pointer-events: auto;
-}
-
-/* Media queries */
-@media (max-width: 768px) {
-    .floating-emoji {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-section {
-        padding-top: 4rem;
-    }
-    
-    /* Hide floating emojis on mobile devices */
-    .floating-emoji {
-        display: none;
-    }
-}
-
-/* Page Transition Effects */
-.page-transition {
-    position: relative;
-    overflow-x: hidden;
-}
-
-.hero-section {
-    transition: background-color 0.8s ease-in-out;
-}
-
-.hero-title,
-.hero-subtitle,
-.hero-logo-container,
-.hero-cta {
-    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-    will-change: transform, opacity;
-}
-
-.hero-section.transition-active .hero-title {
-    transform: translateX(-150%);
-    opacity: 0;
-    transition-delay: 0s;
-}
-
-.hero-section.transition-active .hero-subtitle {
-    transform: translateX(-150%);
-    opacity: 0;
-    transition-delay: 0.05s;
-}
-
-.hero-section.transition-active .hero-logo-container {
-    transform: translateX(150%);
-    opacity: 0;
-    transition-delay: 0.1s;
-}
-
-.hero-section.transition-active .hero-cta {
-    transform: translateY(150%);
-    opacity: 0;
-    transition-delay: 0.15s;
-}
-
-.download-btn.pulse {
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Signup Page Animation */
+/* Base styling for the signup container and fade-in effects */
 .signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    will-change: transform, opacity;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .signup-container.animate-in {
     opacity: 1;
     transform: translateY(0);
-} 
+}
+
+/* Fade in effect for sections on scroll */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
