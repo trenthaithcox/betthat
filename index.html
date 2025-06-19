@@ -13,116 +13,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="betthatsquare.png" type="image/png">
 </head>
-<body class="font-sans min-h-screen">
+<body class="font-sans min-h-screen bg-white flex flex-col justify-center items-center" style="min-height: 100vh;">
 
-    <!-- New Navigation Bar -->
-    <nav class="absolute top-0 left-0 right-0 p-8 flex justify-between items-center z-50">
-        <div class="text-2xl font-bold" style="color: #2E8B90;">
-            <a href="index.html">
-                <img src="betthat full adjusted.png" alt="Bet That Logo" class="h-12">
-            </a>
-        </div>
-        <div class="hidden md:flex space-x-6 text-gray-700 text-sm md:text-base">
-            <a href="index.html" class="hover:text-gray-900">HOME</a>
-            <span class="text-gray-400">/</span>
-            <a href="how-it-works.html" class="hover:text-gray-900">HOW IT WORKS</a>
-            <span class="text-gray-400">/</span>
-            <a href="faq.html" class="hover:text-gray-900">FAQ</a>
-            <span class="text-gray-400">/</span>
-            <a href="join-team.html" class="hover:text-gray-900">JOBS</a>
-            <span class="text-gray-400">/</span>
-            <a href="contact.html" class="hover:text-gray-900">CONTACT US</a>
-        </div>
-        <button id="menuToggle" class="md:hidden text-gray-800 focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-    </nav>
-
-    <!-- Side Drawer Menu -->
-    <div id="sideMenu" class="fixed top-0 left-0 w-64 h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50 shadow-xl">
-        <div class="p-6">
-            <button id="closeMenu" class="absolute top-4 right-4 text-gray-800 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <ul class="mt-8 space-y-4 pl-8">
-                <li><a href="index.html" class="text-xl font-semibold hover:text-gray-900">Home</a></li>
-                <li><a href="how-it-works.html" class="text-xl font-semibold hover:text-gray-900">How It Works</a></li>
-                <li><a href="faq.html" class="text-xl font-semibold hover:text-gray-900">FAQ</a></li>
-                <li><a href="join-team.html" class="text-xl font-semibold hover:text-gray-900">Jobs</a></li>
-                <li><a href="contact.html" class="text-xl font-semibold hover:text-gray-900">Contact Us</a></li>
-            </ul>
-        </div>
+<!-- COMING SOON PAGE -->
+<div id="comingSoon" class="flex flex-col justify-center items-center min-h-screen w-full">
+    <img src="betthat full adjusted.png" alt="Bet That Logo" class="h-24 mb-8">
+    <h1 class="text-3xl font-bold mb-4 text-gray-900">Coming Soon</h1>
+    <div class="mb-4 flex flex-col items-center">
+        <input id="devPassword" type="password" placeholder="Dev password" class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 mb-2">
+        <button id="unlockBtn" class="px-4 py-2 font-bold rounded border border-gray-300" style="color: #232936; border-color: #232936; background: #fff;">Unlock</button>
     </div>
+    <p class="text-gray-400 text-sm">Site is temporarily down for updates.</p>
+</div>
 
-    <!-- Overlay when menu is open -->
-    <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out z-40"></div>
+<script>
+// Password to unlock the site (change as needed)
+const DEV_PASSWORD = "letmein";
+const unlockBtn = document.getElementById('unlockBtn');
+const devPassword = document.getElementById('devPassword');
 
-    <!-- Hero Section with two columns -->
-    <section class="flex flex-col md:flex-row items-center justify-evenly min-h-screen pt-16 md:pt-20 px-8 max-w-6xl mx-auto">
-        <!-- Left Column: Text and Download Buttons -->
-        <div class="flex flex-col items-center text-center md:w-1/2 p-4 pt-8">
-            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">Bet on anything,<br class="md:hidden"> with anyone</h1>
-            <p class="text-xl md:text-2xl text-gray-700 mb-8">Coming soon on the App Store and Play Store</p>
-            <a href="signup.html" class="bg-[#2E8B90] font-bold py-3 px-6 rounded-full shadow-lg hover:bg-[#257276] transition-colors duration-300 mb-2 inline-block button-primary-text">
-                Join Waitlist
-            </a>
-            <img src="store-image.png" alt="Download on App Store and Google Play" class="hidden md:block max-w-xs md:max-w-sm">
-        </div>
+unlockBtn.addEventListener('click', function() {
+    if (devPassword.value === DEV_PASSWORD) {
+        // Hide coming soon, show real site
+        document.getElementById('comingSoon').style.display = 'none';
+        alert('Dev mode: Please restore the original site content from git history or your backup.');
+    } else {
+        devPassword.classList.add('border-red-500');
+        devPassword.value = '';
+        devPassword.placeholder = 'Incorrect password';
+    }
+});
 
-        <!-- Right Column: Demo Phone Image -->
-        <div class="md:w-1/2 flex justify-center md:justify-end p-4">
-            <img src="demo-app.png" alt="Demo App" class="max-w-md md:max-w-lg lg:max-w-xl" style="height: auto; max-height: 80vh;">
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="mt-auto p-6 bg-white bg-opacity-50 rounded-t-3xl">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-center md:text-left mb-4 md:mb-0">Made with 🔥 in Los Angeles, CA</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-700 hover:text-primary-500">Privacy</a>
-                    <a href="join-team.html" class="text-gray-700 hover:text-primary-500">Join Our Team</a>
-                    <a href="contact.html" class="text-gray-700 hover:text-primary-500">Contact</a>
-                </div>
-            </div>
-            <div class="flex justify-center mt-6 space-x-8">
-                <a href="https://www.instagram.com/betthat.io/" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-instagram fa-2x"></i>
-                </a>
-                <a href="https://x.com/betthat_io" class="text-gray-700 hover:text-primary-500" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-twitter fa-2x"></i>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menuToggle');
-            const closeMenu = document.getElementById('closeMenu');
-            const sideMenu = document.getElementById('sideMenu');
-            const overlay = document.getElementById('overlay');
-
-            menuToggle.addEventListener('click', () => {
-                sideMenu.classList.remove('-translate-x-full');
-                overlay.classList.add('opacity-50', 'pointer-events-auto');
-            });
-
-            closeMenu.addEventListener('click', () => {
-                sideMenu.classList.add('-translate-x-full');
-                overlay.classList.remove('opacity-50', 'pointer-events-auto');
-            });
-
-            overlay.addEventListener('click', () => {
-                sideMenu.classList.add('-translate-x-full');
-                overlay.classList.remove('opacity-50', 'pointer-events-auto');
-            });
-        });
-    </script>
+devPassword.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') unlockBtn.click();
+});
+</script>
 </body>
 </html> 
